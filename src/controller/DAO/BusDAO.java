@@ -4,6 +4,7 @@ import model.Bus;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class BusDAO {
@@ -33,7 +34,72 @@ public class BusDAO {
         }
     }
 
+    /**
+     * Metodo para la consulta de buses
+     * @param registro
+     * @param con
+     * @return
+     * @throws SQLException
+     */
+    public Bus consultBus(String registro, Connection con) throws SQLException {
+
+        String sqlConsultaBus = "select registro, tipo, licencia from Bus WHERE registro = ?";
+
+        try (PreparedStatement ps = con.prepareStatement(sqlConsultaBus)){
 
 
+            ps.setString(1,registro);
+            ResultSet rs = ps.executeQuery();
 
+            while (rs.next()){
+
+                Bus b = new Bus();
+
+                b.setRegistro(rs.getString("nombre"));
+                b.setTipo(rs.getString("apellido"));
+                b.setLicencia(rs.getString("licencia"));
+
+                return b;
+            }
+            return null;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public boolean deleteBus(String registro, String tipo, String licencia,Connection con){
+        String sqlEliminarBus = "DELETE FROM bus WHERE registro = ? AND tipo = ? AND licencia = ? ";
+
+        try (PreparedStatement ps = con.prepareStatement(sqlEliminarBus)){
+
+            ps.setString(1, registro);
+            ps.setString(2, tipo);
+            ps.setString(3, licencia);
+
+            return ps.executeUpdate() > 0;
+
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean updateBus(String registro, String tipo, String licencia, Connection con) throws SQLException {
+
+        String sqlActualizarBus = "UPDATE bus SET registro = ?" +
+                "WHERE registro = ? AND tipo = ? AND licencia = ? ";
+
+        try(PreparedStatement ps = con.prepareStatement(sqlActualizarBus)) {
+
+            ps.setString(1,registro);
+            ps.setString(2,tipo);
+            ps.setString(3, licencia);
+
+            return ps.executeUpdate() > 0;
+
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
 }
