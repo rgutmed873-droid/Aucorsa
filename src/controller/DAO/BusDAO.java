@@ -1,11 +1,13 @@
 package controller.DAO;
 
+import controller.DB.ConexionDB;
 import model.Bus;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class BusDAO {
 
@@ -15,7 +17,7 @@ public class BusDAO {
      * @param con Establezco el parámetro de la conexión y así no tiene que estar en el metodo
      * @return
      */
-    public boolean insertBus(Bus bus, Connection con) {
+    public boolean insertBus(Bus bus, Connection con) throws SQLException{
         String sqlinsertarBus = "INSERT INTO Bus (register, type, license) VALUES (?, ?, ?)";
 
         //Preparar para hacer la conexión de la consulta
@@ -26,51 +28,61 @@ public class BusDAO {
             ps.setString(2,bus.getTipo());
             ps.setString(3,bus.getLicencia());
 
-            // Devuelve un entero y como es mayor que 0 se actualiza la tabla del bus
-            return ps.executeUpdate() > 0;
-        }catch (SQLException e){
-            e.printStackTrace();
-            return false;
+
+            int filasAfectadas = ps.executeUpdate();
+            if (filasAfectadas > 0) {
+                return true;
+            } else return false;
+
+        }catch (RuntimeException e){
+            System.out.println("Error al insertar bus");
+            throw new RuntimeException(e);
         }
     }
 
     /**
-     * Metodo para la consulta de buses
-     * @param registro
-     * @param con
+     * Metodo de consulta para ver los buses que hay
      * @return
      * @throws SQLException
      */
-    public Bus consultBus(String registro, Connection con) throws SQLException {
+    public ArrayList<Bus> consultBus() throws SQLException {
 
-        String sqlConsultaBus = "select registro, tipo, licencia from Bus WHERE registro = ?";
+        String sqlConsultaBus = "SELECT  * FROM Bus";
+        ArrayList<Bus> buses = new ArrayList<>();
+        try (Connection con = ConexionDB.getConexion()){
 
-        try (PreparedStatement ps = con.prepareStatement(sqlConsultaBus)){
-
-
-            ps.setString(1,registro);
+            PreparedStatement ps = con.prepareStatement(sqlConsultaBus);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()){
 
-                Bus b = new Bus();
+                Bus busConsult = new Bus();
 
-                b.setRegistro(rs.getString("nombre"));
-                b.setTipo(rs.getString("apellido"));
-                b.setLicencia(rs.getString("licencia"));
+                busConsult.setRegistro(rs.getString("registro"));
+                busConsult.setTipo(rs.getString("tipo"));
+                busConsult.setLicencia(rs.getString("licencia"));
 
-                return b;
+                buses.add(busConsult);
             }
-            return null;
+            return buses;
 
         } catch (SQLException e) {
+            System.out.println("Error en la consulta de BBDD");
             throw new RuntimeException(e);
         }
 
     }
 
+    /**
+     * Metodo para borrar o eliminar un autobús
+     * @param registro
+     * @param tipo
+     * @param licencia
+     * @param con
+     * @return
+     */
     public boolean deleteBus(String registro, String tipo, String licencia,Connection con){
-        String sqlEliminarBus = "DELETE FROM bus WHERE registro = ? AND tipo = ? AND licencia = ? ";
+        String sqlEliminarBus = "DELETE FROM bus WHERE registro = ? ";
 
         try (PreparedStatement ps = con.prepareStatement(sqlEliminarBus)){
 
@@ -78,17 +90,30 @@ public class BusDAO {
             ps.setString(2, tipo);
             ps.setString(3, licencia);
 
-            return ps.executeUpdate() > 0;
-
+            int filaAfectada =  ps.executeUpdate();
+            if (filaAfectada > 0){
+                return true;
+            }else return false;
         }catch (Exception e){
+            System.out.println("Error al eliminar bus");
             throw new RuntimeException(e);
         }
     }
 
+    /**
+     * Metodo para actualizar la tabla del autobus
+     * @param registro
+     * @param tipo
+     * @param licencia
+     * @param con
+     * @return
+     * @throws SQLException
+     */
     public boolean updateBus(String registro, String tipo, String licencia, Connection con) throws SQLException {
 
-        String sqlActualizarBus = "UPDATE bus SET registro = ?" +
-                "WHERE registro = ? AND tipo = ? AND licencia = ? ";
+        String sqlActualizarBus = "UPDATE bus " +
+                "SET registro = ?,  tipo = ?, licencia = ? " +
+                "WHERE registro = ? ";
 
         try(PreparedStatement ps = con.prepareStatement(sqlActualizarBus)) {
 
@@ -96,9 +121,12 @@ public class BusDAO {
             ps.setString(2,tipo);
             ps.setString(3, licencia);
 
-            return ps.executeUpdate() > 0;
-
+            int filaAfectada = ps.executeUpdate();
+            if (filaAfectada > 0){
+                return true;
+            }else return false;
         }catch (Exception e){
+            System.out.println("Error al actualizar bus");
             throw new RuntimeException(e);
         }
     }

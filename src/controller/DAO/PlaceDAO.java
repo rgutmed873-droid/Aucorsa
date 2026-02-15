@@ -7,9 +7,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class PlaceDAO {
-
 
     /**
      * Metodo para insertar un nuevo Lugar en la tabla place
@@ -17,19 +17,24 @@ public class PlaceDAO {
      * @return
      * @throws SQLException
      */
-    public boolean insertPlace(Place place) throws SQLException {
+    public boolean insertPlace(Place place, Connection con) throws SQLException {
 
         String sqlInsertarLugar = "INSERT INTO place (idlugar,ciudad,sitio,cp) VALUES (?,?,?,?)";
 
-        try (Connection con = ConexionDB.getConexion()){
-            PreparedStatement ps = con.prepareStatement(sqlInsertarLugar);
+        try (PreparedStatement ps = con.prepareStatement(sqlInsertarLugar)){
 
             ps.setInt(1, place.idLugar);
             ps.setString(2, place.ciudad);
             ps.setString(3, place.sitio);
             ps.setInt(4, place.cp);
 
-            return ps.executeUpdate() > 0;
+            int filaAfectada = ps.executeUpdate();
+            if (filaAfectada > 0) {
+                return true;
+            }else return false;
+        }catch (Exception e){
+            System.out.println("Error al insertar lugar");
+            throw new RuntimeException(e);
         }
     }
 
@@ -43,7 +48,7 @@ public class PlaceDAO {
      * @return
      */
     public boolean deletePlace(int idLugar, String ciudad, String sitio, int cp,Connection con){
-        String sqlEliminarPlace = "DELETE FROM place WHERE idLugar = ? AND ciudad = ? AND sitio = ? AND cp = ? ";
+        String sqlEliminarPlace = "DELETE FROM place WHERE idLugar = ? ";
 
         try (PreparedStatement ps = con.prepareStatement(sqlEliminarPlace)){
 
@@ -52,52 +57,68 @@ public class PlaceDAO {
             ps.setString(3,sitio);
             ps.setInt(4,cp);
 
-            return ps.executeUpdate() > 0;
+           int filaAfectada = ps.executeUpdate();
+
+           if (filaAfectada > 0) {
+                return true;
+           } return  false;
 
         }catch (Exception e){
+            System.out.println("Error al eliminar lugar");
             throw new RuntimeException(e);
         }
     }
 
     /**
      * Metodo para consultar los lugares
-     * @param idLugar
-     * @param con
      * @return
      * @throws SQLException
      */
-    public Place consultPlace(int idLugar, Connection con) throws SQLException {
+    public ArrayList<Place> consultPlace() throws SQLException {
 
-        String sqlConsultaPlace = "select idLugar, ciudad, sitio, cp from place WHERE idplace = ?";
+        String sqlConsultaPlace = "SELECT * FROM place";
+        ArrayList<Place> places = new ArrayList<>();
 
-        try (PreparedStatement ps = con.prepareStatement(sqlConsultaPlace)){
+        try (Connection con = ConexionDB.getConexion()){
 
-
-            ps.setInt(1,idLugar);
+            PreparedStatement ps = con.prepareStatement(sqlConsultaPlace);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()){
 
-                Place p = new Place();
+                Place placeConsult = new Place();
 
-                p.setIdLugar(rs.getInt("IDLugar"));
-                p.setCiudad(rs.getString("Ciudad"));
-                p.setSitio(rs.getString("Sitio"));
-                p.setCp(rs.getInt("CP"));
-                return p;
+                placeConsult.setIdLugar(rs.getInt("IDLugar"));
+                placeConsult.setCiudad(rs.getString("Ciudad"));
+                placeConsult.setSitio(rs.getString("Sitio"));
+                placeConsult.setCp(rs.getInt("CP"));
+
+                places.add(placeConsult);
             }
-            return null;
+            return places;
 
         } catch (SQLException e) {
+            System.out.println("Error al consultar los lugares");
             throw new RuntimeException(e);
         }
 
     }
 
+    /**
+     * Metodo para actualizar los lugares de la tabla
+     * @param idLugar
+     * @param ciudad
+     * @param sitio
+     * @param cp
+     * @param con
+     * @return
+     * @throws SQLException
+     */
     public boolean updatePlace(int idLugar, String ciudad, String sitio, int cp, Connection con) throws SQLException {
 
-        String sqlActualizarPlace = "UPDATE place SET idlugar = ?" +
-                "WHERE idlugar = ? AND ciudad = ? AND sitio = ?  AND cp = ? ";
+        String sqlActualizarPlace = "UPDATE place " +
+                "SET idlugar = ?, ciudad = ?, sitio = ?, cp = ? " +
+                "WHERE idlugar = ? ";
 
         try(PreparedStatement ps = con.prepareStatement(sqlActualizarPlace)) {
 
@@ -106,9 +127,13 @@ public class PlaceDAO {
             ps.setString(3, sitio);
             ps.setInt(4, cp);
 
-            return ps.executeUpdate() > 0;
+            int filaAfectada = ps.executeUpdate();
 
+            if (filaAfectada > 0) {
+                return true;
+            } else return false;
         }catch (Exception e){
+            System.out.println("Error al actualizar lugar");
             throw new RuntimeException(e);
         }
     }

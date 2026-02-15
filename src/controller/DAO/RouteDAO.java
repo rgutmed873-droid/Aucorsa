@@ -1,40 +1,42 @@
 package controller.DAO;
 
-import model.Driver;
+import controller.DB.ConexionDB;
 import model.Route;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class RouteDAO {
 
     /**
-     * Metodo para insertar la ruta en la tabla BDP que es la ruta
-     * @param registro Variable de Bus clave principal de la tabla Bus
-     * @param numeroConductor Variable de Conductor clave principal de la tabla Conductor
-     * @param idLugar Variable de Lugar clave principal de la tabla Lugar
-     * @param diaSemana Variable String para el los días de la semana de las rutas
-     * @param con Establezco el parámetro de la conexión y así no tiene que estar en el metodo
+     * Metodo para insertar una ruta nueva en la tabla
+     * @param route
+     * @param con
      * @return
      * @throws SQLException
      */
-
-    public boolean insertRoute(String registro, int numeroConductor, int idLugar, String diaSemana, Connection con) throws SQLException{
+    public boolean insertRoute(Route route, Connection con) throws SQLException{
         String sqlInsertarRuta = "INSERT INTO BDP (registro,numeroCoductor, idLugar, diaSemana) VALUE (?,?,?,?)";
 
         //Preparar la conexión con la base de datos para la consulta
         try (PreparedStatement ps = con.prepareStatement(sqlInsertarRuta)) {
 
-            ps.setString(1, registro);
-            ps.setInt(2, numeroConductor);
-            ps.setInt(3, idLugar);
-            ps.setString(4, diaSemana);
+            ps.setString(1, route.getRegistro());
+            ps.setInt(2, route.getNumeroConductor());
+            ps.setInt(3, route.getIdLugar());
+            ps.setString(4, route.getDiaSemana());
 
-            return ps.executeUpdate() > 0;
+            int filaAfectada = ps.executeUpdate();
+
+            if (filaAfectada > 0) {
+                return true;
+            }else return false;
 
         } catch (Exception e) {
+            System.out.println("Error al insertar ruta");
             throw new RuntimeException(e);
         }
 
@@ -58,43 +60,48 @@ public class RouteDAO {
             ps.setInt(2,idLugar);
             ps.setString(3,registro);
 
-            return ps.executeUpdate() > 0;
+            int filaAfectada = ps.executeUpdate();
+
+            if (filaAfectada > 0) {
+                return true;
+            } else return false;
 
         }catch (Exception e){
+            System.out.println("Error al eliminar ruta");
             throw new RuntimeException(e);
         }
     }
 
     /**
-     * Metodo para la consulta de Rutas de la tabla BDP
-     * @param numConductor El parametro que le pedimos al usuario para consultar la tabla
-     * @param con Establezco la conexión con la base de datos
+     * Metodo para consultar la tabla de las rutas
      * @return
      * @throws SQLException
      */
-    public Route consultRoute(int numConductor, Connection con) throws SQLException {
+    public ArrayList<Route> consultRoute() throws SQLException {
 
-        String sqlConsultaRuta = "select registro, numeroConductor, idLugar, diaSEmana from BDP WHERE numConductor = ?";
+        String sqlConsultaRuta = "SELECT  * FROM BDP";
+        ArrayList<Route> routes = new ArrayList<>();
+        try (Connection con = ConexionDB.getConexion()){
 
-        try (PreparedStatement ps = con.prepareStatement(sqlConsultaRuta)){
-
-
-            ps.setInt(1,numConductor);
+            PreparedStatement ps = con.prepareStatement(sqlConsultaRuta);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()){
 
-                Route r = new Route();
+                Route routeConsult = new Route();
 
-                r.setRegistro(rs.getString("Registro"));
-                r.setNumeroConductor(rs.getInt("NumeroConductor"));
-                r.setIdLugar(rs.getInt("idLugar"));
-                r.setDiaSemana(rs.getString("DiaSemana"));
-                return r;
+                routeConsult.setRegistro(rs.getString("Registro"));
+                routeConsult.setNumeroConductor(rs.getInt("NumeroConductor"));
+                routeConsult.setIdLugar(rs.getInt("idLugar"));
+                routeConsult.setDiaSemana(rs.getString("DiaSemana"));
+                routes.add(routeConsult);
+
             }
-            return null;
+
+            return routes;
 
         } catch (SQLException e) {
+            System.out.println("Error al consultar las rutas de la BBDD");
             throw new RuntimeException(e);
         }
 
@@ -112,8 +119,9 @@ public class RouteDAO {
      */
     public boolean updateRoute(String registro, int numeroConductor, int idLugar, String Dia, Connection con) throws SQLException {
 
-        String sqlActualizarRuta = "UPDATE BDP SET diaSemana = ?" +
-                "WHERE registro = ? AND numdriver = ? AND idLugar = ?";
+        String sqlActualizarRuta = "UPDATE BDP" +
+                "SET diaSemana = ?" +
+                "WHERE diaSemana = ?";
 
         try(PreparedStatement ps = con.prepareStatement(sqlActualizarRuta)) {
 
@@ -122,9 +130,13 @@ public class RouteDAO {
             ps.setInt(3, numeroConductor);
             ps.setInt(4, idLugar);
 
-            return ps.executeUpdate() > 0;
+            int filaAfectada = ps.executeUpdate();
 
+            if (filaAfectada > 0) {
+                return true;
+            }else return false;
         }catch (Exception e){
+            System.out.println("Error al actualizar ruta");
             throw new RuntimeException(e);
         }
     }
