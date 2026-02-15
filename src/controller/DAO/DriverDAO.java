@@ -1,42 +1,49 @@
 package controller.DAO;
 
+import controller.DB.ConexionDB;
 import model.Driver;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DriverDAO {
 
+    private Connection con;
+
     /**
      * Metodo para consultar los conductores
-     * @param numConductor variable para el número del Conductor
-     * @param con Establezco el parámetro de la conexión y así no tiene que estar en el metodo
-     * @return
+     * @return El listado de los conductores que hay en la base de datos
      * @throws SQLException
      */
-    public Driver consultDriver(int numConductor, Connection con) throws SQLException {
+    public ArrayList<Driver> consultDrivers() throws SQLException {
 
-        String sqlConsultaConductor = "select nombre, apellido from CONDUCTOR WHERE numConductor = ?";
+        String sqlConsultaConductor = "SELECT * FROM driver";
+        ArrayList<Driver> drivers = new ArrayList<>();
 
-        try (PreparedStatement ps = con.prepareStatement(sqlConsultaConductor)){
+        try (Connection con = ConexionDB.getConexion()){
 
-
-            ps.setInt(1,numConductor);
+            PreparedStatement ps = con.prepareStatement(sqlConsultaConductor);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()){
+                Driver driverConsult = new Driver();
 
-                Driver c = new Driver();
+                driverConsult.setNombre(rs.getString("nombre"));
+                driverConsult.setApellidos(rs.getString("apellidos"));
+                driverConsult.setNumeroConductor(rs.getInt("numero_conductor"));
 
-                c.setNombre(rs.getString("nombre"));
-                c.setApellidos(rs.getString("apellido"));
-                return c;
+                drivers.add(driverConsult);
+
             }
-            return null;
+
+            return drivers;
 
         } catch (SQLException e) {
+            System.out.println("Error al consultar la BBDD.");
             throw new RuntimeException(e);
         }
 
@@ -58,9 +65,16 @@ public class DriverDAO {
             ps.setString(2,driver.getApellidos());
             ps.setInt(3, driver.getNumeroConductor());
 
-            return ps.executeUpdate() > 0;
-        }
+            int filasAfectas= ps.executeUpdate();
 
+            if (filasAfectas > 0){
+                return true;
+            } else return false;
+
+        } catch (RuntimeException e) {
+            System.out.println("Error al insertar en la BBDD");
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -72,7 +86,7 @@ public class DriverDAO {
      * @return
      */
     public boolean deleteDriver(String nombre, String apellido, int numDriver,Connection con){
-        String sqlEliminarDriver = "DELETE FROM driver WHERE numdriver = ? AND apellido = ? AND numdriver = ? ";
+        String sqlEliminarDriver = "DELETE FROM driver WHERE numdriver = ? ";
 
         try (PreparedStatement ps = con.prepareStatement(sqlEliminarDriver)){
 
@@ -80,9 +94,13 @@ public class DriverDAO {
             ps.setString(2, apellido);
             ps.setInt(3, numDriver);
 
-            return ps.executeUpdate() > 0;
+            int filaAfectada = ps.executeUpdate();
 
+            if (filaAfectada > 0){
+                return true;
+            }else return false;
         }catch (Exception e){
+            System.out.println("Error al eliminar en la BBDD");
             throw new RuntimeException(e);
         }
     }
@@ -98,8 +116,9 @@ public class DriverDAO {
      */
     public boolean updateDriver(String nombre, String apellido, int numDriver, Connection con) throws SQLException {
 
-        String sqlActualizarDriver = "UPDATE driver SET numDriver = ?" +
-                "WHERE nombre = ? AND apellido = ? AND numDriver = ? ";
+        String sqlActualizarDriver = "UPDATE driver " +
+                "SET nombre = ?, apellido = ? " +
+                "WHERE numDriver = ? ";
 
         try(PreparedStatement ps = con.prepareStatement(sqlActualizarDriver)) {
 
@@ -107,9 +126,14 @@ public class DriverDAO {
             ps.setString(2,apellido);
             ps.setInt(3, numDriver);
 
-            return ps.executeUpdate() > 0;
+            int filaAfectada = ps.executeUpdate();
+
+            if (filaAfectada > 0){
+                return true;
+            } else return false;
 
         }catch (Exception e){
+            System.out.println("Error al actualizar en la BBDD");
             throw new RuntimeException(e);
         }
     }

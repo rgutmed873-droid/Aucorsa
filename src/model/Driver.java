@@ -3,7 +3,7 @@ package model;
 public class Driver {
     //ATRIBUTOS PRINCIPALES
     public String nombre;
-    public String apellidos;
+    public String apellido;
     public int numeroConductor;
 
     public Driver (){
@@ -12,7 +12,7 @@ public class Driver {
     //CONSTRUCTOR DE BUS
     public Driver(String nombre, String apellidos, int numeroConductor) {
         this.nombre = nombre;
-        this.apellidos = apellidos;
+        this.apellido = apellidos;
         this.numeroConductor = numeroConductor;
     }
 
@@ -26,11 +26,11 @@ public class Driver {
     }
 
     public String getApellidos() {
-        return apellidos;
+        return apellido;
     }
 
     public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
+        this.apellido = apellido;
     }
 
     public int getNumeroConductor() {
@@ -45,7 +45,7 @@ public class Driver {
     public String toString() {
         return "Conductor{" +
                 "nombre='" + nombre + '\'' +
-                ", apellidos='" + apellidos + '\'' +
+                ", apellidos='" + apellido + '\'' +
                 ", numeroConductor=" + numeroConductor +
                 '}';
     }
