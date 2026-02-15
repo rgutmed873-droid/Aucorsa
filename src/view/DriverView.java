@@ -61,6 +61,7 @@ public class DriverView extends JFrame {
         add(scrollPane, BorderLayout.SOUTH);
     }
 
+    // GETTERS AND SETTERS
     public JTextField getTxtNombre() {
         return txtNombre;
     }
