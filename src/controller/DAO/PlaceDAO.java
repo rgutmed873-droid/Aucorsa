@@ -13,12 +13,12 @@ public class PlaceDAO {
 
     /**
      * Metodo para insertar un nuevo lugar
-     * @param idLugar
-     * @param ciudad
-     * @param sitio
-     * @param cp
-     * @param con
-     * @return
+     * @param idLugar Parametro para el idLugar de la tabla place
+     * @param ciudad Parametro para la ciudad de la tabla place
+     * @param sitio Parametro para el sitio de la tabla
+     * @param cp Parametro para el cp de la tabla
+     * @param con Establezco conexión con la base datos
+     * @return Devuelve la insercción en la tabla
      * @throws SQLException
      */
     public boolean insertPlace(int idLugar, String ciudad, String sitio, int cp, Connection con) throws SQLException {
@@ -41,9 +41,9 @@ public class PlaceDAO {
 
     /**
      * Metodo para eliminar un lugar de la tabla
-     * @param idLugar
-     * @param con
-     * @return
+     * @param idLugar Parametro para el idLugar para borrar datos de la tabla
+     * @param con Establezco conexión con la base de datos
+     * @return Devuelve que ha borrado una fila de la base de datos
      */
     public boolean deletePlace(int idLugar, Connection con){
         String sqlEliminarPlace = "DELETE FROM place WHERE idLugar = ? ";
@@ -54,8 +54,6 @@ public class PlaceDAO {
 
            return ps.executeUpdate() > 0;
 
-
-
         }catch (Exception e){
            throw new RuntimeException("Error al eliminar el lugar",e);
         }
@@ -63,7 +61,7 @@ public class PlaceDAO {
 
     /**
      * Metodo para consultar los lugares
-     * @return
+     * @return Listado de los lugares a consultar en la base de datos
      * @throws SQLException
      */
     public ArrayList<Place> consultPlace() throws SQLException {
@@ -98,12 +96,12 @@ public class PlaceDAO {
 
     /**
      * Metodo para actualizar los lugares de la tabla
-     * @param idLugar
-     * @param ciudad
-     * @param sitio
-     * @param cp
-     * @param con
-     * @return
+     * @param idLugar Parametro
+     * @param ciudad Parametro
+     * @param sitio Parametro
+     * @param cp Parametro
+     * @param con Establezco conexión con la base de datos
+     * @return Cambio en la tabla
      * @throws SQLException
      */
     public boolean updatePlace(int idLugar, String ciudad, String sitio, int cp, Connection con) throws SQLException {

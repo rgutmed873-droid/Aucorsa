@@ -43,7 +43,7 @@ public class BusDAO {
 
     /**
      * Metodo de consulta para ver los buses que hay
-     * @return
+     * @return Devuelve una lista de los buses que hay
      * @throws SQLException
      */
     public ArrayList<Bus> consultBus() throws SQLException {
@@ -79,9 +79,9 @@ public class BusDAO {
 
     /**
      * Metodo para borrar o eliminar un autobús
-     * @param registro
-     * @param con
-     * @return
+     * @param registro Parametro que introduzco para eliminar en la tabla bus
+     * @param con Establezco conexión con la base de datos
+     * @return Devuelve que borrar el bus seleccionado
      */
     public boolean deleteBus(String registro,Connection con){
         String sqlEliminarBus = "DELETE FROM bus WHERE registro = ? ";
@@ -101,11 +101,11 @@ public class BusDAO {
 
     /**
      * Metodo para actualizar la tabla del autobus
-     * @param registro
-     * @param tipo
-     * @param licencia
-     * @param con
-     * @return
+     * @param registro Parametro para el registro del bus
+     * @param tipo Parametro para el tipo de bus
+     * @param licencia Parametro para la licencia del bus
+     * @param con Establezco conexión con la base de datos
+     * @return Devuelve los cambios que se han hecho en la tabla
      * @throws SQLException
      */
     public boolean updateBus(String registro, String tipo, String licencia, Connection con) throws SQLException {

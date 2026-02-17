@@ -13,12 +13,12 @@ public class RouteDAO {
 
     /**
      * Metodo para insertar la ruta
-     * @param registro
-     * @param numDriver
-     * @param idLugar
-     * @param diaSemana
-     * @param con
-     * @return
+     * @param registro Parametro de la primary key de la tabla bus
+     * @param numDriver Parametro de la primary key de la tabla driver
+     * @param idLugar Parametro de la primary key de la tabla place
+     * @param diaSemana Parametro para el día de la semana de la tabla route
+     * @param con Establezco conexion con la base de datos
+     * @return Devuelve la inserción en la base de datos route
      * @throws SQLException
      */
     public boolean insertRoute(String registro, int numDriver, int idLugar, String diaSemana, Connection con) throws SQLException{
@@ -33,8 +33,6 @@ public class RouteDAO {
             ps.setString(4, diaSemana);
 
             return ps.executeUpdate() > 0;
-
-
 
         } catch (Exception e) {
             throw new RuntimeException("Error al insertar la ruta",e);
