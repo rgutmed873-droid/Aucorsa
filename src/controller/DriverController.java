@@ -35,6 +35,36 @@ public class DriverController {
         vistaConductor.getBtnEliminar().addActionListener(e -> eliminar());
     }
 
+    private void eliminar() {
+
+        try {
+            String nombre = vistaConductor.getTxtNombre().getText();
+            String apellido = vistaConductor.getTxtApellidos().getText();
+            int numDriver = Integer.parseInt(vistaConductor.getTxtnumDriver().getText());
+
+
+            try {
+                daoConductor.deleteDriver(d,con);
+            }catch (SQLException e){
+                throw new RuntimeException(e);
+            }
+
+            loadTable();
+        } catch () {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    private void actualizar() {
+
+        try{
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private void insertar() {
 
         try{
@@ -52,10 +82,8 @@ public class DriverController {
 
             loadTable();
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(vistaConductor,"El número del conductor debeser un entero");
+            JOptionPane.showMessageDialog(vistaConductor, "El número del conductor debeser un entero");
         }
-
-
 
     }
 

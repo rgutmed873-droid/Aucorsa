@@ -30,6 +30,7 @@ public class BusDAO {
 
 
             int filasAfectadas = ps.executeUpdate();
+
             if (filasAfectadas > 0) {
                 return true;
             } else return false;
@@ -49,19 +50,21 @@ public class BusDAO {
 
         String sqlConsultaBus = "SELECT  * FROM Bus";
         ArrayList<Bus> buses = new ArrayList<>();
+        //Establecer conexión con la base de datos
         try (Connection con = ConexionDB.getConexion()){
-
+            //Preparar para hacer la conexión de la consulta
             PreparedStatement ps = con.prepareStatement(sqlConsultaBus);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()){
-
+                //Nueva instancia para la consulta de los buses
                 Bus busConsult = new Bus();
-
+                //Datos que se consiguen de la consulta
                 busConsult.setRegistro(rs.getString("registro"));
                 busConsult.setTipo(rs.getString("tipo"));
                 busConsult.setLicencia(rs.getString("licencia"));
 
+                //Añadir a la array list de los buses para poder ver todos los datos de la consulta
                 buses.add(busConsult);
             }
             return buses;
@@ -83,14 +86,15 @@ public class BusDAO {
      */
     public boolean deleteBus(String registro, String tipo, String licencia,Connection con){
         String sqlEliminarBus = "DELETE FROM bus WHERE registro = ? ";
-
+        //Preparar la conexion para la consulta
         try (PreparedStatement ps = con.prepareStatement(sqlEliminarBus)){
-
+            //SETTERS de los datos
             ps.setString(1, registro);
             ps.setString(2, tipo);
             ps.setString(3, licencia);
 
             int filaAfectada =  ps.executeUpdate();
+
             if (filaAfectada > 0){
                 return true;
             }else return false;
@@ -114,9 +118,9 @@ public class BusDAO {
         String sqlActualizarBus = "UPDATE bus " +
                 "SET registro = ?,  tipo = ?, licencia = ? " +
                 "WHERE registro = ? ";
-
+        //Preparar la conexion para la consulta
         try(PreparedStatement ps = con.prepareStatement(sqlActualizarBus)) {
-
+            //SETTERS DE LOS DATOS
             ps.setString(1,registro);
             ps.setString(2,tipo);
             ps.setString(3, licencia);
