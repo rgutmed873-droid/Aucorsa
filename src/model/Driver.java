@@ -9,7 +9,7 @@ public class Driver {
     public Driver (){
 
     }
-    //CONSTRUCTOR DE BUS
+    //CONSTRUCTOR DE DRIVER
     public Driver(String nombre, String apellidos, int numeroConductor) {
         this.nombre = nombre;
         this.apellido = apellidos;

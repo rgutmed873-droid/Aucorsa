@@ -18,14 +18,13 @@ public class DriverDAO {
      * @return El listado de los conductores que hay en la base de datos
      * @throws SQLException
      */
-    public ArrayList<Driver> consultDrivers() throws SQLException {
+    public ArrayList<Driver> consultDrivers(Connection con) throws SQLException {
 
         String sqlConsultaConductor = "SELECT * FROM driver";
         ArrayList<Driver> drivers = new ArrayList<>();
 
-        try (Connection con = ConexionDB.getConexion()){
+        try (PreparedStatement ps = con.prepareStatement(sqlConsultaConductor)){
 
-            PreparedStatement ps = con.prepareStatement(sqlConsultaConductor);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()){
@@ -57,7 +56,7 @@ public class DriverDAO {
      * @return
      * @throws SQLException
      */
-    public boolean insertDriver(String nombre, String apellido, int numDriver, Connection con) throws SQLException {
+    public boolean insertDriver(String nombre, String apellido, int numDriver, Connection con) {
         String sqlInsertarConductor = "INSERT INTO CONDUCTOR (nombre, apellido, numeroConductor) VALUES (?, ?,?)";
 
         try (PreparedStatement ps = con.prepareStatement(sqlInsertarConductor)){
@@ -104,7 +103,7 @@ public class DriverDAO {
      * @return
      * @throws SQLException
      */
-    public boolean updateDriver(String nombre, String apellido, int numDriver, Connection con) throws SQLException {
+    public boolean updateDriver(String nombre, String apellido, int numDriver, Connection con) {
 
         String sqlActualizarDriver = "UPDATE driver " +
                 "SET nombre = ?, apellido = ? " +
