@@ -8,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class DriverDAO {
 
@@ -79,20 +78,17 @@ public class DriverDAO {
 
     /**
      * Metodo para borrar o eliminar un Conductor
-     * @param nombre
-     * @param apellido
      * @param numDriver
      * @param con
      * @return
      */
-    public boolean deleteDriver(String nombre, String apellido, int numDriver,Connection con){
+    public boolean deleteDriver(int numDriver,Connection con){
         String sqlEliminarDriver = "DELETE FROM driver WHERE numdriver = ? ";
 
         try (PreparedStatement ps = con.prepareStatement(sqlEliminarDriver)){
 
-            ps.setString(1, nombre);
-            ps.setString(2, apellido);
-            ps.setInt(3, numDriver);
+
+            ps.setInt(1, numDriver);
 
             int filaAfectada = ps.executeUpdate();
 

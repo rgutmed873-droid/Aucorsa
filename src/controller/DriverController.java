@@ -42,7 +42,7 @@ public class DriverController {
             String apellido = vistaConductor.getTxtApellidos().getText();
             int numDriver = Integer.parseInt(vistaConductor.getTxtnumDriver().getText());
 
-            daoConductor.deleteDriver(nombre,apellido,numDriver,con);
+            daoConductor.deleteDriver(numDriver,con);
 
             loadTable();
         } catch (NumberFormatException e) {
