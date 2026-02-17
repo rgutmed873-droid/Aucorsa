@@ -20,6 +20,7 @@ public class DriverController {
 
     //CONSTRUCTOR PRINCIPAL DEL DRIVER CONTROLLER
     public DriverController(DriverView view, DriverDAO dao,Connection con) {
+
         this.view = view;
         this.dao = dao;
         this.con = con;
