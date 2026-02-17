@@ -108,12 +108,16 @@ public class DriverController {
         model.setRowCount(0);
 
 
-        for (Driver d : dao.consultDrivers()) {
-            model.addRow(new Object[]{
-                    d.getNombre(),
-                    d.getApellidos(),
-                    d.getNumeroConductor()
-            });
+        try {
+            for (Driver d : dao.consultDrivers(con)) {
+                model.addRow(new Object[]{
+                        d.getNombre(),
+                        d.getApellidos(),
+                        d.getNumeroConductor()
+                });
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(view, "Error al cargar los datos. Consulte con su administrador");
         }
 
     }
@@ -127,7 +131,6 @@ public class DriverController {
             view.getTxtNombre().setText(view.getTable().getValueAt(fila,0).toString());
             view.getTxtApellidos().setText(view.getTable().getValueAt(fila,1).toString());
             view.getTxtnumDriver().setText(view.getTable().getValueAt(fila,2).toString());
-
 
         }
     }
