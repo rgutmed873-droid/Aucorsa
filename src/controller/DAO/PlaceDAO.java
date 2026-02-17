@@ -41,21 +41,15 @@ public class PlaceDAO {
     /**
      * Metodo para eliminar un lugar de la tabla
      * @param idLugar
-     * @param ciudad
-     * @param sitio
-     * @param cp
      * @param con
      * @return
      */
-    public boolean deletePlace(int idLugar, String ciudad, String sitio, int cp,Connection con){
+    public boolean deletePlace(int idLugar, Connection con){
         String sqlEliminarPlace = "DELETE FROM place WHERE idLugar = ? ";
 
         try (PreparedStatement ps = con.prepareStatement(sqlEliminarPlace)){
 
             ps.setInt(1,idLugar);
-            ps.setString(2,ciudad);
-            ps.setString(3,sitio);
-            ps.setInt(4,cp);
 
            int filaAfectada = ps.executeUpdate();
 

@@ -79,19 +79,16 @@ public class BusDAO {
     /**
      * Metodo para borrar o eliminar un autobús
      * @param registro
-     * @param tipo
-     * @param licencia
      * @param con
      * @return
      */
-    public boolean deleteBus(String registro, String tipo, String licencia,Connection con){
+    public boolean deleteBus(String registro,Connection con){
         String sqlEliminarBus = "DELETE FROM bus WHERE registro = ? ";
         //Preparar la conexion para la consulta
         try (PreparedStatement ps = con.prepareStatement(sqlEliminarBus)){
             //SETTERS de los datos
             ps.setString(1, registro);
-            ps.setString(2, tipo);
-            ps.setString(3, licencia);
+
 
             int filaAfectada =  ps.executeUpdate();
 

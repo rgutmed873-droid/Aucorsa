@@ -38,8 +38,7 @@ public class DriverController {
     private void eliminar() {
 
         try {
-            String nombre = vistaConductor.getTxtNombre().getText();
-            String apellido = vistaConductor.getTxtApellidos().getText();
+
             int numDriver = Integer.parseInt(vistaConductor.getTxtnumDriver().getText());
 
             daoConductor.deleteDriver(numDriver,con);

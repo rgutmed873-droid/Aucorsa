@@ -45,20 +45,16 @@ public class RouteDAO {
     /**
      * Metodo para eliminar una ruta
      * @param numeroConductor Variable de Conductor clave principal de la tabla Conductor
-     * @param idLugar Variable de Lugar clave principal de la tabla Lugar
-     * @param registro Variable de Bus clave principal de la tabla Bus
      * @param con Establezco el parámetro de la conexión y así no tiene que estar en el metodo
      * @return
      */
 
-    public boolean deleteRoute(int numeroConductor, int idLugar, String registro, Connection con){
+    public boolean deleteRoute(int numeroConductor,Connection con){
         String sqlEliminarRuta = "DELETE FROM BDP WHERE registro = ? AND numeroCoductor = ? AND idLugar = ? ";
 
         try (PreparedStatement ps = con.prepareStatement(sqlEliminarRuta)){
 
             ps.setInt(1,numeroConductor);
-            ps.setInt(2,idLugar);
-            ps.setString(3,registro);
 
             int filaAfectada = ps.executeUpdate();
 
