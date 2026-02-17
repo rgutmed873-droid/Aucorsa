@@ -20,13 +20,17 @@ public class Principal {
             //Crear conexion
             Connection con = ConexionDB.getConexion();
 
-            //Crear MVC
+            //Crear la vista
             DriverView view = new DriverView();
+            //Crear el DAO
             DriverDAO driverDAO = new DriverDAO();
-            Driver driver = new Driver();
 
             //Crear Controller
-            new DriverController(view,driverDAO,driver,con);
+            new DriverController(view,driverDAO,con);
+
+            //Mostrar la ventana
+            view.setVisible(true);
+
         }catch (Exception e){
             e.printStackTrace();
         }
