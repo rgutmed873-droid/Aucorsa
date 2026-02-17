@@ -52,15 +52,12 @@ public class PlaceDAO {
 
             ps.setInt(1,idLugar);
 
-           int filaAfectada = ps.executeUpdate();
+           return ps.executeUpdate() > 0;
 
-           if (filaAfectada > 0) {
-                return true;
-           } return  false;
+
 
         }catch (Exception e){
-            System.out.println("Error al eliminar lugar");
-            throw new RuntimeException(e);
+           throw new RuntimeException("Error al eliminar el lugar",e);
         }
     }
 
@@ -122,14 +119,11 @@ public class PlaceDAO {
             ps.setString(3, sitio);
             ps.setInt(4, cp);
 
-            int filaAfectada = ps.executeUpdate();
+            return ps.executeUpdate() > 0;
 
-            if (filaAfectada > 0) {
-                return true;
-            } else return false;
+
         }catch (Exception e){
-            System.out.println("Error al actualizar lugar");
-            throw new RuntimeException(e);
+           throw new RuntimeException("Error al actualizar el lugar",e);
         }
     }
 }

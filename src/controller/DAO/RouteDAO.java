@@ -12,32 +12,32 @@ import java.util.ArrayList;
 public class RouteDAO {
 
     /**
-     * Metodo para insertar una ruta nueva en la tabla
-     * @param route
+     * Metodo para insertar la ruta
+     * @param registro
+     * @param numDriver
+     * @param idLugar
+     * @param diaSemana
      * @param con
      * @return
      * @throws SQLException
      */
-    public boolean insertRoute(Route route, Connection con) throws SQLException{
+    public boolean insertRoute(String registro, int numDriver, int idLugar, String diaSemana, Connection con) throws SQLException{
         String sqlInsertarRuta = "INSERT INTO BDP (registro,numeroCoductor, idLugar, diaSemana) VALUE (?,?,?,?)";
 
         //Preparar la conexión con la base de datos para la consulta
         try (PreparedStatement ps = con.prepareStatement(sqlInsertarRuta)) {
 
-            ps.setString(1, route.getRegistro());
-            ps.setInt(2, route.getNumeroConductor());
-            ps.setInt(3, route.getIdLugar());
-            ps.setString(4, route.getDiaSemana());
+            ps.setString(1, registro);
+            ps.setInt(2, numDriver);
+            ps.setInt(3, idLugar);
+            ps.setString(4, diaSemana);
 
-            int filaAfectada = ps.executeUpdate();
+            return ps.executeUpdate() > 0;
 
-            if (filaAfectada > 0) {
-                return true;
-            }else return false;
+
 
         } catch (Exception e) {
-            System.out.println("Error al insertar ruta");
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error al insertar la ruta",e);
         }
 
     }
@@ -56,15 +56,11 @@ public class RouteDAO {
 
             ps.setInt(1,numeroConductor);
 
-            int filaAfectada = ps.executeUpdate();
+            return ps.executeUpdate() > 0;
 
-            if (filaAfectada > 0) {
-                return true;
-            } else return false;
 
         }catch (Exception e){
-            System.out.println("Error al eliminar ruta");
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error al eliminar la ruta",e);
         }
     }
 
@@ -126,11 +122,8 @@ public class RouteDAO {
             ps.setInt(3, numeroConductor);
             ps.setInt(4, idLugar);
 
-            int filaAfectada = ps.executeUpdate();
+            return ps.executeUpdate() > 0;
 
-            if (filaAfectada > 0) {
-                return true;
-            }else return false;
         }catch (Exception e){
             System.out.println("Error al actualizar ruta");
             throw new RuntimeException(e);
