@@ -50,6 +50,7 @@ public class BusDAO {
 
         String sqlConsultaBus = "SELECT  * FROM Bus";
         ArrayList<Bus> buses = new ArrayList<>();
+
         //Establecer conexión con la base de datos
         try (Connection con = ConexionDB.getConexion()){
             //Preparar para hacer la conexión de la consulta
@@ -90,14 +91,11 @@ public class BusDAO {
             ps.setString(1, registro);
 
 
-            int filaAfectada =  ps.executeUpdate();
+            return ps.executeUpdate() >0;
 
-            if (filaAfectada > 0){
-                return true;
-            }else return false;
+
         }catch (Exception e){
-            System.out.println("Error al eliminar bus");
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error al eliminar el bus",e);
         }
     }
 
@@ -122,10 +120,8 @@ public class BusDAO {
             ps.setString(2,tipo);
             ps.setString(3, licencia);
 
-            int filaAfectada = ps.executeUpdate();
-            if (filaAfectada > 0){
-                return true;
-            }else return false;
+            return ps.executeUpdate() > 0;
+
         }catch (Exception e){
             System.out.println("Error al actualizar bus");
             throw new RuntimeException(e);

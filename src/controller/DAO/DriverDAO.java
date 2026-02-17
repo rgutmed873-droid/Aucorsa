@@ -49,30 +49,28 @@ public class DriverDAO {
     }
 
     /**
-     * Metodo para insertar Conductores en la base de datos
-     * @param driver Atributo para obtener los datos del modelo Conductor
-     * @param con Establezco el parámetro de la conexión y así no tiene que estar en el metodo
+     * Metodo para insertar un conductor
+     * @param nombre
+     * @param apellido
+     * @param numDriver
+     * @param con
      * @return
      * @throws SQLException
      */
-    public boolean insertDriver(Driver driver, Connection con) throws SQLException {
+    public boolean insertDriver(String nombre, String apellido, int numDriver, Connection con) throws SQLException {
         String sqlInsertarConductor = "INSERT INTO CONDUCTOR (nombre, apellido, numeroConductor) VALUES (?, ?,?)";
 
         try (PreparedStatement ps = con.prepareStatement(sqlInsertarConductor)){
 
-            ps.setString(1, driver.getNombre());
-            ps.setString(2,driver.getApellidos());
-            ps.setInt(3, driver.getNumeroConductor());
+            ps.setString(1, nombre);
+            ps.setString(2,apellido);
+            ps.setInt(3, numDriver);
 
-            int filasAfectas= ps.executeUpdate();
+            return ps.executeUpdate() > 0;
 
-            if (filasAfectas > 0){
-                return true;
-            } else return false;
 
-        } catch (RuntimeException e) {
-            System.out.println("Error al insertar en la BBDD");
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException("Error al insertar",e);
         }
     }
 
@@ -87,17 +85,13 @@ public class DriverDAO {
 
         try (PreparedStatement ps = con.prepareStatement(sqlEliminarDriver)){
 
-
             ps.setInt(1, numDriver);
 
-            int filaAfectada = ps.executeUpdate();
+            return ps.executeUpdate()>0;
 
-            if (filaAfectada > 0){
-                return true;
-            }else return false;
+
         }catch (Exception e){
-            System.out.println("Error al eliminar en la BBDD");
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error al eliminar",e);
         }
     }
 
@@ -122,15 +116,11 @@ public class DriverDAO {
             ps.setString(2,apellido);
             ps.setInt(3, numDriver);
 
-            int filaAfectada = ps.executeUpdate();
+            return ps.executeUpdate() >0;
 
-            if (filaAfectada > 0){
-                return true;
-            } else return false;
 
         }catch (Exception e){
-            System.out.println("Error al actualizar en la BBDD");
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error al actualizar",e);
         }
     }
 }

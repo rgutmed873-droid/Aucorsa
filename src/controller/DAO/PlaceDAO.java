@@ -12,29 +12,30 @@ import java.util.ArrayList;
 public class PlaceDAO {
 
     /**
-     * Metodo para insertar un nuevo Lugar en la tabla place
-     * @param place Atributo para obtener los datos del modelo Lugar
+     * Metodo para insertar un nuevo lugar
+     * @param idLugar
+     * @param ciudad
+     * @param sitio
+     * @param cp
+     * @param con
      * @return
      * @throws SQLException
      */
-    public boolean insertPlace(Place place, Connection con) throws SQLException {
+    public boolean insertPlace(int idLugar, String ciudad, String sitio, int cp, Connection con) throws SQLException {
 
         String sqlInsertarLugar = "INSERT INTO place (idlugar,ciudad,sitio,cp) VALUES (?,?,?,?)";
 
         try (PreparedStatement ps = con.prepareStatement(sqlInsertarLugar)){
 
-            ps.setInt(1, place.idLugar);
-            ps.setString(2, place.ciudad);
-            ps.setString(3, place.sitio);
-            ps.setInt(4, place.cp);
+            ps.setInt(1, idLugar);
+            ps.setString(2, ciudad);
+            ps.setString(3, sitio);
+            ps.setInt(4, cp);
 
-            int filaAfectada = ps.executeUpdate();
-            if (filaAfectada > 0) {
-                return true;
-            }else return false;
+            return ps.executeUpdate() > 0;
+
         }catch (Exception e){
-            System.out.println("Error al insertar lugar");
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error al insertar un nuevo lugar",e);
         }
     }
 
