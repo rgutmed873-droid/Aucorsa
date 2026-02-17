@@ -37,7 +37,6 @@ public class RouteDAO {
         } catch (Exception e) {
             throw new RuntimeException("Error al insertar la ruta",e);
         }
-
     }
 
     /**
@@ -64,7 +63,7 @@ public class RouteDAO {
 
     /**
      * Metodo para consultar la tabla de las rutas
-     * @return
+     * @return Devuelve una lista de la tabla route
      * @throws SQLException
      */
     public ArrayList<Route> consultRoute() throws SQLException {
@@ -99,12 +98,12 @@ public class RouteDAO {
 
     /**
      * Metodo para actualizar las Rutas
-     * @param registro
-     * @param numeroConductor
-     * @param idLugar
-     * @param Dia
-     * @param con
-     * @return
+     * @param registro Parametro de la primary key de Bus
+     * @param numeroConductor Parametro de la primary key de Driver
+     * @param idLugar Parametro de la primary key de Place
+     * @param Dia Parametro de dia
+     * @param con Establezco conexión con la base de datos
+     * @return Devuelve un cambio en la tabla de route
      * @throws SQLException
      */
     public boolean updateRoute(String registro, int numeroConductor, int idLugar, String Dia, Connection con) throws SQLException {
