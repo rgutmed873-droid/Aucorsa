@@ -12,32 +12,32 @@ import java.util.ArrayList;
 public class BusDAO {
 
     /**
-     * Metodo para insertar Bus en la base de datos
-     * @param bus Atributo para obtener los datos del modelo Bus
-     * @param con Establezco el parámetro de la conexión y así no tiene que estar en el metodo
-     * @return
+     * Metodo para insertar un bus
+     * @param registro Parametro para el registro del bus
+     * @param tipo Parametro para el tipo de bus
+     * @param licencia Parametro para la licencia del bus
+     * @param con Establezco conexión con la base de datos
+     * @return Devuelve una inserción en la base de datos de la tabla Bus
+     * @throws SQLException
      */
-    public boolean insertBus(Bus bus, Connection con) throws SQLException{
+    public boolean insertBus(String registro, String tipo, String licencia, Connection con) throws SQLException{
         String sqlinsertarBus = "INSERT INTO Bus (register, type, license) VALUES (?, ?, ?)";
 
         //Preparar para hacer la conexión de la consulta
         try (PreparedStatement ps = con.prepareStatement(sqlinsertarBus)){
 
             //Setear los datos para la consulta
-            ps.setString(1,bus.getRegistro());
-            ps.setString(2,bus.getTipo());
-            ps.setString(3,bus.getLicencia());
+            ps.setString(1,registro);
+            ps.setString(2,tipo);
+            ps.setString(3,licencia);
 
 
-            int filasAfectadas = ps.executeUpdate();
+            return ps.executeUpdate() > 0;
 
-            if (filasAfectadas > 0) {
-                return true;
-            } else return false;
+
 
         }catch (RuntimeException e){
-            System.out.println("Error al insertar bus");
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error al insertar el bus",e);
         }
     }
 
