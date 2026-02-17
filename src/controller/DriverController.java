@@ -13,11 +13,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class DriverController {
-
+    //Atributos principales
     private DriverView view;
     private DriverDAO dao;
     private Connection con;
 
+    //CONSTRUCTOR PRINCIPAL DEL DRIVER CONTROLLER
     public DriverController(DriverView view, DriverDAO dao,Connection con) {
         this.view = view;
         this.dao = dao;

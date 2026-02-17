@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 public class ConexionDB {
 
+    //Atributos para establecer la conexión con la base de datos
     private static final String URL = "jdbc:mysql://127.0.0.1:3306/AUCORSA";
     private static final String USER = "root";
     private static final String PASSWORD = "";
