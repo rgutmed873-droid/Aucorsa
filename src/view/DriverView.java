@@ -6,19 +6,33 @@ import java.awt.*;
 
 public class DriverView extends JFrame {
 
+    //ATRIBUTOS PRINCIPALES
+    //Campo de texto para los diferentes atributos
     private JTextField txtNombre;
     private JTextField txtApellidos;
     private JTextField txtnumDriver;
+
+    //Botones para disparar las acciones
     private JButton btnInsertar;
     private JButton btnActualizar;
     private JButton btnEliminar;
+
+    //Tabla visual donde se muestran los conductores
     private JTable table;
+
+    //Modelo que almacena los datos que se mostrarán en la tabla
     private DefaultTableModel model;
 
+    //Constructor de la vista y encargada de inicializar los componentes gráficos
     public DriverView() {
+
+        //Establecer titulo de la ventana
         setTitle("Driver");
+        //Tamaño de la ventana
         setSize(600,600);
+        //Cerrar la aplicación cuando cierras la ventana
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //Centrar la ventana en la pantalla
         setLocationRelativeTo(null);
 
         initComponents();
@@ -26,6 +40,9 @@ public class DriverView extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Metodo para ejecutar los componentes de la vista del DriverView
+     */
     private void initComponents() {
         JPanel panelFormulario = new JPanel();
 
