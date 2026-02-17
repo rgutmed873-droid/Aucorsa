@@ -42,16 +42,14 @@ public class DriverController {
             String apellido = vistaConductor.getTxtApellidos().getText();
             int numDriver = Integer.parseInt(vistaConductor.getTxtnumDriver().getText());
 
-
-            try {
-                daoConductor.deleteDriver(d,con);
-            }catch (SQLException e){
-                throw new RuntimeException(e);
-            }
+            daoConductor.deleteDriver(nombre,apellido,numDriver,con);
 
             loadTable();
-        } catch () {
-            throw new RuntimeException(e);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(vistaConductor, " El número del conductor tiene que ser un entero");
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(vistaConductor, "Error al eliminar el conductor");
+            e.printStackTrace();
         }
 
     }
@@ -59,9 +57,18 @@ public class DriverController {
     private void actualizar() {
 
         try{
+            String nombre = vistaConductor.getTxtNombre().getText();
+            String apellido = vistaConductor.getTxtApellidos().getText();
+            int numDriver = Integer.parseInt(vistaConductor.getTxtnumDriver().getText());
 
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            daoConductor.updateDriver(nombre,apellido,numDriver,con);
+
+            loadTable();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(vistaConductor, "El número del conductor tiene que ser un entero");
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(vistaConductor,"Error al actualizar");
+            e.printStackTrace();
         }
     }
 
