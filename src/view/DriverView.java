@@ -44,6 +44,19 @@ public class DriverView extends JFrame {
      * Metodo para ejecutar los componentes de la vista del DriverView
      */
     private void initComponents() {
+
+        btnInsertar = new JButton("Insertar");
+        btnActualizar = new JButton("Actualizar");
+        btnEliminar = new JButton("Eliminar");
+
+        JPanel panelButtons = new JPanel();
+        panelButtons.add(btnInsertar);
+        panelButtons.add(btnActualizar);
+        panelButtons.add(btnEliminar);
+
+        model = new DefaultTableModel();
+        table = new JTable(model);
+
         JPanel panelFormulario = new JPanel();
 
         panelFormulario.add(new JLabel("Nombre:"));
@@ -57,18 +70,6 @@ public class DriverView extends JFrame {
         panelFormulario.add(new JLabel("Número Conductor:"));
         txtnumDriver = new JTextField();
         panelFormulario.add(txtnumDriver);
-
-        btnInsertar = new JButton("Insertar");
-        btnActualizar = new JButton("Actualizar");
-        btnEliminar = new JButton("Eliminar");
-
-        JPanel panelButtons = new JPanel();
-        panelButtons.add(btnInsertar);
-        panelButtons.add(btnActualizar);
-        panelButtons.add(btnEliminar);
-
-        model = new DefaultTableModel();
-        table = new JTable(model);
 
         JScrollPane scrollPane = new JScrollPane(table);
 

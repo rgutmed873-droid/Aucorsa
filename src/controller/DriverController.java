@@ -29,7 +29,9 @@ public class DriverController {
         loadTable();
     }
 
-
+    /**
+     * Metodo que he puesto para cargar las opciones que se pueden hacer en la aplicación
+     */
     private void eventos() {
         view.getBtnInsertar().addActionListener(e -> insertar());
         view.getBtnActualizar().addActionListener(e -> actualizar());
@@ -42,6 +44,9 @@ public class DriverController {
         });
     }
 
+    /**
+     * Metodo del botón eliminar driver pero en el controlador que es el encargado de todo
+     */
     private void eliminar() {
 
         try {
@@ -60,6 +65,9 @@ public class DriverController {
 
     }
 
+    /**
+     * Metodo del botón actualizar de driver pero el controller es el que hace todo
+     */
     private void actualizar() {
 
         try{
@@ -79,6 +87,9 @@ public class DriverController {
         }
     }
 
+    /**
+     * Metodo del botón insertar de driver
+     */
     private void insertar() {
 
         try{
@@ -104,6 +115,9 @@ public class DriverController {
 
     }
 
+    /**
+     * Metodo para cargar los datos que tiene la tabla
+     */
     private void loadTable() {
 
         DefaultTableModel model = view.getModel();
@@ -124,6 +138,9 @@ public class DriverController {
 
     }
 
+    /**
+     * Metodo para que cargue los datos de la opción elegida
+     */
     private void cargarSeleccion(){
 
         int fila = view.getTable().getSelectedRow();
@@ -137,6 +154,9 @@ public class DriverController {
         }
     }
 
+    /**
+     * Metodo que he puesto para que se quede limpio y bien visto
+     */
     private void limpiarCampos(){
 
         view.getTxtNombre().setText("");
