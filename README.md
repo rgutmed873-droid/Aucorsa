@@ -36,5 +36,5 @@
 
 ### 1. Clonar el repositorio
 ```bash
-git clone https://github.com/tu-usuario/Aucorsa.git
+git clone https://github.com/rgutmed873-droid/Aucorsa.git
 cd Aucorsa
