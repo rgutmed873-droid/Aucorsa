@@ -9,6 +9,9 @@
 
 ## Diagrama de clases (Mermaid)
 ```mermaid
+## Diagrama de clases (Mermaid)
+
+```mermaid
 classDiagram
     class Principal {
         +main()
@@ -24,11 +27,11 @@ classDiagram
     }
     class BusController {
         +cargarBuses()
-        +añadirBus()
+        +anadirBus()
     }
     class BusDAO {
-        +añadirBus(Connection, Bus) boolean
-        +mostrarTodosLosBuses(Connection) List~Bus~
+        +anadirBus(Connection, Bus) boolean
+        +mostrarTodosLosBuses(Connection) List
     }
     class ConnectionBBDD {
         +getConexion() Connection
@@ -37,5 +40,5 @@ classDiagram
     Principal --> MainController
     MainController --> BusController
     BusController --> BusDAO
-    BusDAO ..> ConnectionBBDD
+    BusDAO --> ConnectionBBDD
 <img width="3091" height="1727" alt="Diagrama E-R Aucorsa" src="https://github.com/user-attachments/assets/cbde249d-45d3-4e9d-b4a5-e81e38ed42a8" />
