@@ -1,0 +1,30 @@
+{
+  "info": {
+    "name": "Aucorsa API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Bus",
+      "item": [
+        { "name": "Listar buses", "request": { "method": "GET", "url": "http://localhost:8080/api/bus" } },
+        { "name": "Crear bus", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"matricula\": \"9999XYZ\",\n  \"tipo\": \"Eléctrico\",\n  \"licencia\": \"D\"\n}" }, "url": "http://localhost:8080/api/bus" } },
+        { "name": "Modificar bus", "request": { "method": "PUT", "body": { "mode": "raw", "raw": "{\"tipo\":\"Articulado\"}" }, "url": "http://localhost:8080/api/bus/9999XYZ" } },
+        { "name": "Eliminar bus", "request": { "method": "DELETE", "url": "http://localhost:8080/api/bus/9999XYZ" } }
+      ]
+    },
+    {
+      "name": "Conductor",
+      "item": [
+        { "name": "Listar conductores", "request": { "method": "GET", "url": "http://localhost:8080/api/conductor" } },
+        { "name": "Crear conductor", "request": { "method": "POST", "body": { "mode": "raw", "raw": "{\"numConductor\":123,\"nombre\":\"Ana\",\"apellido\":\"López\"}" }, "url": "http://localhost:8080/api/conductor" } }
+      ]
+    },
+    {
+      "name": "Routes",
+      "item": [
+        { "name": "Crear ruta", "request": { "method": "POST", "body": { "mode": "raw", "raw": "{\"matricula\":\"B001\",\"numConductor\":101,\"idLugar\":1,\"diaSemana\":\"Lunes\"}" }, "url": "http://localhost:8080/api/routes" } }
+      ]
+    }
+  ]
+}
