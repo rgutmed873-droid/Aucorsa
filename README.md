@@ -38,3 +38,5 @@
 ```bash
 git clone https://github.com/rgutmed873-droid/Aucorsa.git
 cd Aucorsa
+
+[Manual de Usuario](https://github.com/rgutmed873-droid/Aucorsa/wiki)
