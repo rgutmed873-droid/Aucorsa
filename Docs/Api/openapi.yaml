@@ -1,0 +1,106 @@
+openapi: 3.0.0
+info:
+  title: API Aucorsa (DAO Interface)
+  version: 1.0.0
+paths:
+  /bus:
+    get:
+      summary: Listar todos los buses
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Bus'
+    post:
+      summary: Crear nuevo bus
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BusInput'
+      responses:
+        '201': { description: Creado }
+        '409': { description: Duplicado (código 1006) }
+  /bus/{matricula}:
+    put:
+      summary: Modificar bus
+      parameters:
+        - name: matricula
+          in: path
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tipo: { type: string }
+                licencia: { type: string }
+      responses:
+        '200': { description: Actualizado }
+        '404': { description: No encontrado (código 3002) }
+    delete:
+      summary: Eliminar bus
+      parameters:
+        - name: matricula
+          in: path
+      responses:
+        '204': { description: Eliminado }
+  /conductor:
+    get:
+      summary: Listar conductores
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Conductor'
+  /routes:
+    post:
+      summary: Crear ruta
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RouteInput'
+      responses:
+        '201': { description: Creada }
+components:
+  schemas:
+    Bus:
+      type: object
+      properties:
+        matricula: { type: string }
+        tipo: { type: string }
+        licencia: { type: string }
+    BusInput:
+      type: object
+      required: [matricula, tipo, licencia]
+      properties:
+        matricula: { type: string }
+        tipo: { type: string }
+        licencia: { type: string }
+    Conductor:
+      type: object
+      properties:
+        numConductor: { type: integer }
+        nombre: { type: string }
+        apellido: { type: string }
+    RouteInput:
+      type: object
+      required: [matricula, numConductor, idLugar, diaSemana]
+      properties:
+        matricula: { type: string }
+        numConductor: { type: integer }
+        idLugar: { type: integer }
+        diaSemana: { type: string }
