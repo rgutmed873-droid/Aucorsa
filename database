@@ -1,0 +1,91 @@
+DROP DATABASE IF exists Aucorsa;
+CREATE DATABASE Aucorsa;
+USE Aucorsa;
+-- Tabla Bus
+CREATE TABLE Bus (
+    matricula VARCHAR(10) PRIMARY KEY,
+    tipo VARCHAR(20),
+    licencia VARCHAR(20)
+);
+
+-- Tabla Driver
+CREATE TABLE Conductor (
+    numConductor INT PRIMARY KEY,
+    nombre VARCHAR(50),
+    apellido VARCHAR(50),
+    imagen VARCHAR(50)
+);
+
+-- Tabla Place
+CREATE TABLE Lugar (
+    idLugar INT PRIMARY KEY,
+    cp VARCHAR(10),
+    ciudad VARCHAR(50),
+    lugar VARCHAR(50)
+);
+
+-- Tabla intermedia B-D-P (relación ternaria)
+-- Tabla ternaria Routes (Bus + Conductor + Lugar)
+CREATE TABLE Routes (
+    matricula      VARCHAR(10) NOT NULL,
+    numConductor   INT         NOT NULL,
+    idLugar        INT         NOT NULL,
+    diaSemana      VARCHAR(15) NOT NULL,
+    PRIMARY KEY (matricula, numConductor, idLugar),
+    FOREIGN KEY (matricula)    REFERENCES Bus(matricula),
+    FOREIGN KEY (numConductor) REFERENCES Conductor(numConductor),
+    FOREIGN KEY (idLugar)      REFERENCES Lugar(idLugar)
+);
+
+
+-- Insertamos buses
+INSERT INTO Bus VALUES 
+('B001', 'Urbano', 'LIC001'),
+('B002', 'Interurbano', 'LIC002'),
+('B003', 'Turismo', 'LIC003'),
+('B004', 'Escolar', 'LIC004'),
+('B005', 'Urbano', 'LIC005'),
+('B006', 'Turismo', 'LIC006'),
+('B007', 'Interurbano', 'LIC007'),
+('B008', 'Urbano', 'LIC008'),
+('B009', 'Escolar', 'LIC009'),
+('B010', 'Turismo', 'LIC010');
+
+-- Insertamos conductores
+INSERT INTO Conductor VALUES 
+(101, 'Carlos', 'García', null),
+(102, 'Lucía', 'Pérez', null),
+(103, 'Manuel', 'Martín', null),
+(104, 'Laura', 'López', null),
+(105, 'Javier', 'Sánchez', null),
+(106, 'Marta', 'Fernández', null),
+(107, 'David', 'Ruiz', null),
+(108, 'Ana', 'Díaz', null),
+(109, 'Pablo', 'Gómez', null),
+(110, 'Elena', 'Navarro', null);
+
+-- Insertamos lugares
+INSERT INTO Lugar VALUES 
+(1, '14001', 'Córdoba', 'Centro'),
+(2, '28013', 'Madrid', 'Sol'),
+(3, '41001', 'Sevilla', 'Triana'),
+(4, '08001', 'Barcelona', 'Gótico'),
+(5, '46001', 'Valencia', 'Carmen'),
+(6, '29001', 'Málaga', 'Soho'),
+(7, '03001', 'Alicante', 'Explanada'),
+(8, '35001', 'Las Palmas', 'Vegueta'),
+(9, '07001', 'Palma', 'Catedral'),
+(10, '15001', 'A Coruña', 'Marina');
+
+-- Insertamos Rutas
+INSERT INTO Routes VALUES
+('B001', 101, 1,  'Lunes'),
+('B002', 102, 2,  'Martes'),
+('B003', 103, 3,  'Miércoles'),
+('B004', 104, 4,  'Jueves'),
+('B005', 105, 5,  'Viernes'),
+('B006', 106, 6,  'Lunes'),
+('B007', 107, 7,  'Martes'),
+('B008', 108, 8,  'Miércoles'),
+('B009', 109, 9,  'Jueves'),
+('B010', 110, 10, 'Viernes');
