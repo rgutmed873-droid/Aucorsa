@@ -8,8 +8,6 @@
 ## Organización de carpetas
 
 ## Diagrama de clases (Mermaid)
-```mermaid
-## Diagrama de clases (Mermaid)
 
 ```mermaid
 classDiagram
