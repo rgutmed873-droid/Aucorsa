@@ -1,4 +1,4 @@
-# 🚌 Aucorsa - Sistema de Gestión de Flota y Rutas
+# Aucorsa - Sistema de Gestión de Flota y Rutas
 
 > **Package de Entrega para Transferencia**  
 > *Tiempo estimado para poner en marcha y entender el proyecto: **< 2 horas***
