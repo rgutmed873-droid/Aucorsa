@@ -31,7 +31,7 @@
 > ⚠️ El proyecto está configurado para JDK 25 (ver `misc.xml`). Si usas JDK 17/21, cambia el `languageLevel` en tu IDE.
 
 ---
-##[Manual de Usuario](https://github.com/rgutmed873-droid/Aucorsa/wiki)
+##
 ## Despliegue en Local (paso a paso)
 
 ### 1. Clonar el repositorio
@@ -39,5 +39,6 @@
 git clone https://github.com/rgutmed873-droid/Aucorsa.git
 cd Aucorsa
 
-
-##[Manual de Usuario](https://github.com/rgutmed873-droid/Aucorsa/wiki)
+##Manual del Usuario
+Puedes consultar la guía completa para el usuario final en la Wiki del repositorio:
+[Manual de Usuario](https://github.com/rgutmed873-droid/Aucorsa/wiki)
