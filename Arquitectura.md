@@ -9,7 +9,6 @@
 
 ## Diagrama de clases (Mermaid)
 
-```mermaid
 classDiagram
     class Principal {
         +main()
