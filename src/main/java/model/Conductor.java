@@ -2,7 +2,8 @@ package model;
 
 /**
  * Clase Conductor
- * Representa a un conductor con su número identificativo, nombre y apellido.
+ * Representa a un conductor del sistema
+ * Guarda su número identificativo, nombre, apellido y foto de perfil
  */
 public class Conductor {
 

@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 /**
  * Clase ConnectionBBDD
- * Gestiona la conexión a la base de datos MySQL de AUCORSA.
+ * Se encarga de abrir la conexión con la base de datos MySQL
  * Lanza {@link AucorsaException} con código {@link AucorsaErrorCode#DB_CONNECTION_ERROR}
  * si no puede establecer la conexión.
  */

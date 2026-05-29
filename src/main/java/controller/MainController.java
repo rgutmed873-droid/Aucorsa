@@ -13,9 +13,9 @@ import java.awt.event.WindowEvent;
 
 /**
  * Clase MainController
- * Controlador principal de la aplicación Aucorsa.
- * Coordina BusController, ConductorController, LugarController y RouteController
- * y gestiona la barra de herramientas de la ventana principal.
+ * Controlador principal de la ventana.
+ * Conecta los botones de (Añadir, Borrar, Modificar, Refrescar)
+ * con BusController, ConductorController, LugarController y RouteController
  */
 public class MainController {
 

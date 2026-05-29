@@ -2,7 +2,8 @@ package model;
 
 /**
  * Clase Bus
- * Representa un autobús con su matrícula, tipo y licencia.
+ * Representa a un Bus del sistema
+ * Guarda su matrícula (que es el identificador clave), el tipo de bus y su licencia
  */
 public class Bus {
 

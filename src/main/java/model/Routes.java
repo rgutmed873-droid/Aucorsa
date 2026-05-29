@@ -3,7 +3,7 @@ package model;
 /**
  * Clase Routes
  * Representa la relación entre Bus, Conductor y Lugar,
- * indicando qué conductor conduce qué bus, a qué lugar y en qué día.
+ * Une un bus, un conductor y un lugar con el día de la semana en el que se realiza.
  */
 public class Routes {
 

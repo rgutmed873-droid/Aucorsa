@@ -2,7 +2,8 @@ package model;
 
 /**
  * Clase Lugar
- * Representa un lugar con su identificador, código postal, ciudad y ubicación.
+ * Representa un lugar del sistema.
+ * Guarda su ID, código postal, ciudad y nombre del barrio o zona
  */
 public class Lugar {
 
