@@ -181,6 +181,13 @@ mvn exec:java -Dexec.mainClass="app.Principal"
 - openapi.yaml
 - Aucorsa.postman_collection.json
 
+## 6. Diagramas
+- Para poder ver el diagrama de clases (Mermaid) hay que pinchar en el archivo arquitectura.md en el que podremos ver una descripción de como está estructurado el contenido con relación de la base de datos y su diagrama de clase
+- El diagrama entidad relación se muestra aquí:
+<img width="2150" height="3003" alt="Diagrama entidad-relacion" src="https://github.com/user-attachments/assets/c635f2f1-baed-4307-8919-61009d15af8e" />
+
+## 7. Manual del usuario
+Para consultar el manual del usuario está en la pestaña de este propio github de wiki en el que se explica como se usa la aplicación al igual que todo con referente a la a la aplicación y también hay imagenes que ayudan y hace comprender de mejor manera ciertas funciones de la que dispone el programa
 
 
 
