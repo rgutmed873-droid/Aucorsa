@@ -83,6 +83,16 @@ Usuario
 *La aplicación no implementa autenticación, ya que está diseñada para entornos cerrados y controlados.*
 
 ### Base de datos
+
+El script `database/schema.sql` crea la estructura completa con datos de ejemplo:
+
+- **Bus**: matrícula (PK), tipo, licencia.
+- **Conductor**: numConductor (PK), nombre, apellido, imagen.
+- **Lugar**: idLugar (PK), cp, ciudad, ubicacion.
+- **Routes**: matrícula, numConductor, idLugar (PK compuesta), diaSemana; con claves foráneas.
+
+
+## 3. Estructura de carpetas
 Aucorsa/
 │
 ├── app/ # Punto de entrada de la aplicación
