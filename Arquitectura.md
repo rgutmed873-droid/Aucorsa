@@ -38,4 +38,5 @@ classDiagram
     MainController --> BusController
     BusController --> BusDAO
     BusDAO --> ConnectionBBDD
-<img width="3091" height="1727" alt="Diagrama E-R Aucorsa" src="https://github.com/user-attachments/assets/cbde249d-45d3-4e9d-b4a5-e81e38ed42a8" />
+<img width="3091" height="1727" alt="Diagrama de clases" src="https://github.com/user-attachments/assets/4a60ea58-8f07-4bce-ac25-2facbff62ad8" />
+
