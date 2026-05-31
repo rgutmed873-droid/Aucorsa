@@ -177,6 +177,9 @@ public static final String PASSWORD = "";
 mvn clean compile
 mvn exec:java -Dexec.mainClass="app.Principal"
 
+## 5. Documentación de la API
+- openapi.yaml
+- Aucorsa.postman_collection.json
 
 
 
